@@ -1,7 +1,7 @@
 # compilateur
 CC := g++
 # options de compilation
-CFLAGS := -std=c++17 -g -Wall -Wextra -pedantic -ggdb -I /home/linux/Documents/Barjokart/tomlplusplus
+CFLAGS := -std=c++17 -g -Wall -Wextra -pedantic -ggdb -I $(PWD)/tomlplusplus
 
 ##############################################################################################################
 # ! Veuillez absolument mettre le chemin de votre dossier contenant la bibliothèque toml++ comme ci-dessus ! #
