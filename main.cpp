@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int main(int argc, char const *argv[]) {
+int main() {
 
   // Tests montrants le fonctionnement de la classe permettant de récupérer les paramètres issus du .toml .
 
@@ -28,7 +28,7 @@ int main(int argc, char const *argv[]) {
   std::map<std::string, int> depart = (*recupParam).getCoordonneesDepart();
 
   std::cout << std::endl;
-  
+
 
   delete recupParam;
 

@@ -7,7 +7,7 @@ Circuit::Circuit(std::string _circuit){
     (*this).imageCircuit = image;
     (*this).width = imageCircuit.get_width();
     (*this).height = imageCircuit.get_height();
-    
+
 
 
     for (int i = 0; i < (*this).height; i++){
@@ -50,13 +50,13 @@ Circuit::Circuit(std::string _circuit){
         }
     }*/
 
-   
+
 }
 
 string Circuit::getCarte(){
     string carte = "";
-    for (int i = 0; i < (*this).carte.size(); i++){
-        for (int j = 0; j < (*this).carte[i].size(); j++){
+    for (int i = 0; i < (int) (*this).carte.size(); i++){
+        for (int j = 0; j < (int) (*this).carte[i].size(); j++){
             carte += (*this).carte[i][j];
             cout << (*this).carte[i][j];
         }
