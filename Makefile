@@ -1,7 +1,7 @@
 # compilateur
 CC := g++
 # options de compilation
-CFLAGS := -std=c++17 -g -Wall -Wextra -pedantic -ggdb -I $(PWD)/tomlplusplus
+CFLAGS := -std=c++17 -g -Wall -Wextra -pedantic -ggdb -I $(PWD)/tomlplusplus -I $(PWD)/png++ # ! dernier include à modifier !
 
 ##############################################################################################################
 # ! Veuillez absolument mettre le chemin de votre dossier contenant la bibliothèque toml++ comme ci-dessus ! #
@@ -9,11 +9,11 @@ CFLAGS := -std=c++17 -g -Wall -Wextra -pedantic -ggdb -I $(PWD)/tomlplusplus
 
 all : executable
 
-executable : recupParam.o main.o
-	$(CC) -o $@ $^
+executable : recupParam.o main.o circuit.o
+	$(CC) -o $@ $^ `libpng-config --ldflags --libs`
 
 %.o : %.cpp
-	$(CC) -o $@ -c $< $(CFLAGS)
+	$(CC) -o $@ -c $< $(CFLAGS) `libpng-config --cflags`
 
 
 

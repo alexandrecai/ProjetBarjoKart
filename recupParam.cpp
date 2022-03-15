@@ -6,10 +6,11 @@ using namespace std;
 RecupParam::RecupParam(){}
 
 
-void RecupParam::setVarFromFile(){
-  std::cout << "Donnez le nom d'un fichier de paramètre (ex: param.toml) : " << '\n'<< std::endl;
-  std::cin >> (*this).nameParamFile;
-  std::cout << "Nom des paramètres enregistré" << '\n';
+void RecupParam::setVarFromFile(string paramFile){
+  //std::cout << "Donnez le nom d'un fichier de paramètre (ex: param.toml) : " << '\n'<< std::endl;
+  //std::cin >> (*this).nameParamFile;
+  //std::cout << "Nom des paramètres enregistré" << '\n';
+  (*this).nameParamFile = paramFile;
   try
   {
       (*this).tbl = toml::parse_file((*this).nameParamFile);

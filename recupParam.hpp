@@ -24,7 +24,7 @@ class RecupParam{
   public:
     RecupParam();
 
-    void setVarFromFile();
+    void setVarFromFile(std::string _paramFile);
 
     int getAccelerationMax();
 
