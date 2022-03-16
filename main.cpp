@@ -9,21 +9,18 @@ void CheminALaMain(){
     std::ofstream myFile ("chemin.bin", std::ios::out | std::ios::binary);
     int vitesse = 1;
     int valeurJ = 0;
-    int baseJ = 0;
-    int x = 2;
-    int y = 2;
-    for(int i = 0; i<49; i++){
-
-        myFile.write (reinterpret_cast<const char *>(&x), sizeof(x));
-        myFile.write (reinterpret_cast<const char *>(&y), sizeof(y));
-        std::cout << "(" << x << "," << y << ")" <<'\n';
-
+    int j;
+    for(int i = 0; i<99; i++){
+        int baseJ = i;
+        for(int j = baseJ; j < (baseJ + 1); j++){
+            valeurJ = baseJ ;
+            myFile.write (reinterpret_cast<const char *>(&i), sizeof(i));
+            myFile.write (reinterpret_cast<const char *>(&valeurJ), sizeof(valeurJ));
+            std::cout << "(" << i << "," << valeurJ << ")" <<'\n';            
+        }
+        
+        baseJ = baseJ + j;
     }
-    x = 1;
-    y = 1;
-    myFile.write (reinterpret_cast<const char *>(&x), sizeof(x));
-    myFile.write (reinterpret_cast<const char *>(&y), sizeof(y));
-    std::cout << "(" << x << "," << y << ")" <<'\n';
     myFile.close();
 }
 
@@ -57,10 +54,11 @@ int main() {
 
   int lecture;
 
+ 
   std::ifstream myFileToRead ("chemin.bin", std::ios::out | std::ios::binary);
   myFileToRead.read (reinterpret_cast<char *>(&lecture), sizeof(lecture));
-  std::cout << (int)lecture << std::endl;
-
+  std::cout << (int)lecture << ": lec " << std::endl;
+ 
 
   delete recupParam;
 
