@@ -1,6 +1,8 @@
 #include "circuit.hpp"
 
 using namespace png;
+using namespace std;
+
 
 //Nettoyer le fichier (modifier le constructeur)
 
@@ -88,4 +90,87 @@ string Circuit::getCarte(){
 
 void Circuit::getCasesProxim(int x, int y){
     cout << "(" << x << ", " << y << ")" << endl;
+}
+
+vector<vector<int> > Circuit::ajoutChemin(vector<vector<int> > circuitFinal ,vector<int> pointsPassage, int x_depart, int y_depart, int acc_max){
+
+    int pos_x = x_depart;
+    int pos_y = y_depart;
+
+    int vitesse_x = 0;
+    int vitesse_y = 0;
+
+    int nouvelle_vitesse_x = 0;
+    int nouvelle_vitesse_y = 0;
+
+    int accelTotale = 0;
+
+    vector<vector<int> > pointsAAjouter;
+    vector<int> pointSuivant;
+
+    cout << "acc_max : " << acc_max << endl;
+
+    //Ajout des positions des points ou l'on passe à la liste pointsAAjouter
+    for(int placeValeurAccel = 0; placeValeurAccel < pointsPassage.size() ; placeValeurAccel = placeValeurAccel + 2){
+
+        nouvelle_vitesse_x = vitesse_x + pointsPassage[placeValeurAccel];
+        nouvelle_vitesse_y = vitesse_y + pointsPassage[placeValeurAccel+1];
+
+        accelTotale = abs(nouvelle_vitesse_x - vitesse_x);
+        accelTotale = accelTotale + abs(nouvelle_vitesse_y - vitesse_y);
+
+        cout << "----------------------------------" << endl;
+        cout << accelTotale << endl;
+        cout << "----------------------------------" << endl;
+
+        if(accelTotale > acc_max){
+
+            cout << "Tete a queue" << endl;
+
+            break;
+        }
+
+        else{
+
+            vitesse_x = nouvelle_vitesse_x;
+            vitesse_y = nouvelle_vitesse_y;
+
+            pos_x = pos_x + vitesse_x;
+            pos_y = pos_y + vitesse_y;
+
+            pointSuivant.push_back(pos_x);
+            pointSuivant.push_back(pos_y);
+
+            pointsAAjouter.push_back(pointSuivant);
+
+            pointSuivant.clear();
+
+        }
+
+        
+    }
+
+    for(vector<int> pointActuel : pointsAAjouter){
+        for(int hauteur = 0; hauteur < circuitFinal.size(); hauteur++){
+            for(int largeur = 0; largeur < circuitFinal[hauteur].size(); largeur++){
+                if(hauteur == x_depart && largeur == y_depart){
+                    circuitFinal[hauteur][largeur] = 1;
+                }
+                if(hauteur == pointActuel[0] && largeur == pointActuel[1] && circuitFinal[hauteur][largeur] == 1){
+                    cout << "Tete a queue" << endl;
+                    break;
+                }
+                if(hauteur == pointActuel[0] && largeur == pointActuel[1]){
+                    circuitFinal[hauteur][largeur] = 1;
+                }
+                if(pointActuel[0] < 0 || pointActuel[1] < 0 || pointActuel[0] > circuitFinal.size()-1 || pointActuel[1] >circuitFinal.size()-1){
+                    cout << "Sortie de piste" << endl;
+                    return circuitFinal;
+
+                }
+            }
+        }
+    }
+
+    return circuitFinal;
 }

@@ -49,8 +49,16 @@ int main() {
   int y_depart = depart["y"];
 
 
+  //A modifier pour changer la trajectoire
+  vector<int> accels = {1,0,-1,0};
+
+
   // Generation du circuit sous forme de tableau de vecteurs a 2 dimensions
   vector<vector<int> > circuit_ = (*circuitTest).generateCircuit(circuit, (*recupParam).getRgbArrivee(), x_depart, y_depart);
+
+  //Generation du chemin sur le circuit
+  circuit_ = (*circuitTest).ajoutChemin(circuit_,accels,x_depart,y_depart,acc_max);
+
   for(int i = 0; i < circuit_.size(); i++){
       
       for(int j = 0; j < circuit_[i].size(); j++){
@@ -69,8 +77,11 @@ int main() {
   myFileToRead.read (reinterpret_cast<char *>(&lecture), sizeof(lecture));
   std::cout << (int)lecture << ": lec " << std::endl;
  
+  
 
   delete recupParam;
+
+
 
   return EXIT_SUCCESS;
 }

@@ -30,6 +30,7 @@ class Circuit{
         //Recuperation case a proximite
         void getCasesProxim(int x, int y);
 
+        vector<vector<int> > ajoutChemin(vector<vector<int> > circuitFinal ,vector<int> pointsPassage, int x_depart, int y_depart, int acc_max);
 
         
 
