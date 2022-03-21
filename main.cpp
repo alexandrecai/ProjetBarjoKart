@@ -50,7 +50,7 @@ int main() {
 
 
   //A modifier pour changer la trajectoire
-  vector<int> accels = {1,0,-1,0};
+  vector<int> accels = {2,0,3,1,4,2,5,3,6,4,7,5,8,6,9,7,9,9,9,11,9,13,10,14,9,13,9,11};
 
 
   // Generation du circuit sous forme de tableau de vecteurs a 2 dimensions

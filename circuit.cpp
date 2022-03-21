@@ -113,11 +113,22 @@ vector<vector<int> > Circuit::ajoutChemin(vector<vector<int> > circuitFinal ,vec
     //Ajout des positions des points ou l'on passe à la liste pointsAAjouter
     for(int placeValeurAccel = 0; placeValeurAccel < pointsPassage.size() ; placeValeurAccel = placeValeurAccel + 2){
 
-        nouvelle_vitesse_x = vitesse_x + pointsPassage[placeValeurAccel];
-        nouvelle_vitesse_y = vitesse_y + pointsPassage[placeValeurAccel+1];
+        nouvelle_vitesse_x = pointsPassage[placeValeurAccel];
+        nouvelle_vitesse_y = pointsPassage[placeValeurAccel+1];
+
+        cout << "----------------------------------" << endl;
+        cout << "new x" << nouvelle_vitesse_x << endl;
+        cout << "new y" << nouvelle_vitesse_y << endl;
+        cout << "----------------------------------" << endl;
+
 
         accelTotale = abs(nouvelle_vitesse_x - vitesse_x);
         accelTotale = accelTotale + abs(nouvelle_vitesse_y - vitesse_y);
+
+        cout << "----------------------------------" << endl;
+        cout << "x" << abs(nouvelle_vitesse_x - vitesse_x) << endl;
+        cout << "y" << abs(nouvelle_vitesse_y - vitesse_y) << endl;
+        cout << "----------------------------------" << endl;
 
         cout << "----------------------------------" << endl;
         cout << accelTotale << endl;
@@ -147,7 +158,6 @@ vector<vector<int> > Circuit::ajoutChemin(vector<vector<int> > circuitFinal ,vec
 
         }
 
-        
     }
 
     for(vector<int> pointActuel : pointsAAjouter){
@@ -156,11 +166,15 @@ vector<vector<int> > Circuit::ajoutChemin(vector<vector<int> > circuitFinal ,vec
                 if(hauteur == x_depart && largeur == y_depart){
                     circuitFinal[hauteur][largeur] = 1;
                 }
+                if(hauteur == pointActuel[0] && largeur == pointActuel[1] && circuitFinal[hauteur][largeur] == 9){
+                    cout << "Vous avez réussi !" << endl;
+                    circuitFinal[hauteur][largeur] = 7;
+                }
                 if(hauteur == pointActuel[0] && largeur == pointActuel[1] && circuitFinal[hauteur][largeur] == 1){
                     cout << "Tete a queue" << endl;
                     break;
                 }
-                if(hauteur == pointActuel[0] && largeur == pointActuel[1]){
+                if(hauteur == pointActuel[0] && largeur == pointActuel[1] && circuitFinal[hauteur][largeur] != 7){
                     circuitFinal[hauteur][largeur] = 1;
                 }
                 if(pointActuel[0] < 0 || pointActuel[1] < 0 || pointActuel[0] > circuitFinal.size()-1 || pointActuel[1] >circuitFinal.size()-1){
@@ -168,6 +182,7 @@ vector<vector<int> > Circuit::ajoutChemin(vector<vector<int> > circuitFinal ,vec
                     return circuitFinal;
 
                 }
+                
             }
         }
     }
