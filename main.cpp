@@ -35,8 +35,6 @@ int main() {
 
   RecupParam *recupParam = new RecupParam();
   Circuit *circuitTest = new Circuit(circuit);
-
-
  // méthode obligatoire - permet "lire" le .toml et d'en extraire les paramètres
   (*recupParam).setVarFromFile(paramFile);
 
@@ -53,20 +51,19 @@ int main() {
 
   // Generation du circuit sous forme de tableau de vecteurs a 2 dimensions
   vector<vector<int> > circuit_ = (*circuitTest).generateCircuit(circuit, (*recupParam).getRgbArrivee(), x_depart, y_depart);
-
-for(int i = 0; i < circuit_.size(); i++){
-        for(int j = 0; j < circuit_[i].size(); j++){
-            cout << circuit_[i][j];
+  for(int i = 0; i < circuit_.size(); i++){
+      
+      for(int j = 0; j < circuit_[i].size(); j++){
+        cout << circuit_[i][j];
+      }
+    cout << endl;
         }
-        cout << endl;
-    }
   
 
 
-  CheminALaMain();
+  //CheminALaMain();
 
   int lecture;
-
  
   std::ifstream myFileToRead ("chemin.bin", std::ios::out | std::ios::binary);
   myFileToRead.read (reinterpret_cast<char *>(&lecture), sizeof(lecture));

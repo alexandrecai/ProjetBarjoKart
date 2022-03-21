@@ -5,6 +5,7 @@ using namespace png;
 //Nettoyer le fichier (modifier le constructeur)
 
 Circuit::Circuit(std::string _circuit){
+    std::cout << "Circuit::Circuit(std::string _circuit)" << std::endl;
     png::image< png::rgb_pixel > image(_circuit);
     (*this).imageCircuit = image;
     (*this).width = imageCircuit.get_width();
@@ -32,24 +33,21 @@ Circuit::Circuit(std::string _circuit){
         }
         (*this).carte.push_back(ligne);
     }
- 
+
 }
 
- 
 // Creation d'un tableau a 2 dimensions representant le circuit
 // 9 = arrivee
 // 0 = piste
 // 2 == mur
 vector<vector<int> > Circuit::generateCircuit(string _imageCircuit, std::vector<int> _couleur_arrivee, int _x_depart, int _y_depart){
     png::image< png::rgb_pixel > image(_imageCircuit);
-
     png::rgb_pixel couleur_arrivee;
     couleur_arrivee.red = _couleur_arrivee[0]; 
     couleur_arrivee.green = _couleur_arrivee[1];
     couleur_arrivee.blue = _couleur_arrivee[2];
 
     vector<vector<int> > circuit;
-
     for(int i = 0; i < image.get_height(); i++){
         vector<int> ligne;
         for(int j = 0; j < image.get_width(); j++){
@@ -72,12 +70,7 @@ vector<vector<int> > Circuit::generateCircuit(string _imageCircuit, std::vector<
         }
         circuit.push_back(ligne);
     }
-
-
-}
-
-
-
+    return circuit;
 }
 
 string Circuit::getCarte(){
