@@ -25,6 +25,8 @@ class Circuit{
        
         string getCarte();
 
+        vector<vector<int> > generateCircuit(string image, std::vector<int> couleur_arrivee, int x_depart, int y_depart);
+
         //Recuperation case a proximite
         void getCasesProxim(int x, int y);
 

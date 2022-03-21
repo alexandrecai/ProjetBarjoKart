@@ -36,19 +36,32 @@ int main() {
   RecupParam *recupParam = new RecupParam();
   Circuit *circuitTest = new Circuit(circuit);
 
-  (*circuitTest).getCarte();
 
-  // méthode obligatoire - permet "lire" le .toml et d'en extraire les paramètres
+ // méthode obligatoire - permet "lire" le .toml et d'en extraire les paramètres
   (*recupParam).setVarFromFile(paramFile);
 
   //getters
   int acc_max = (*recupParam).getAccelerationMax();
-
   std::vector<int> couleur_arrivee = (*recupParam).getRgbArrivee();
 
-  std::map<std::string, int> depart = (*recupParam).getCoordonneesDepart();
 
-  std::cout << std::endl;
+  //Recuperation coordonnées depart
+  std::map<std::string, int> depart = (*recupParam).getCoordonneesDepart();
+  int x_depart = depart["x"];
+  int y_depart = depart["y"];
+
+
+  // Generation du circuit sous forme de tableau de vecteurs a 2 dimensions
+  vector<vector<int> > circuit_ = (*circuitTest).generateCircuit(circuit, (*recupParam).getRgbArrivee(), x_depart, y_depart);
+
+for(int i = 0; i < circuit_.size(); i++){
+        for(int j = 0; j < circuit_[i].size(); j++){
+            cout << circuit_[i][j];
+        }
+        cout << endl;
+    }
+  
+
 
   CheminALaMain();
 
