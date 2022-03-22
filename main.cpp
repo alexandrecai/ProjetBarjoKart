@@ -1,5 +1,6 @@
 #include "recupParam.hpp"
 #include "circuit.hpp"
+#include "parcours.hpp"
 #include <fstream>
 #include <stdlib.h>
 
