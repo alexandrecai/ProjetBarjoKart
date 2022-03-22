@@ -57,7 +57,7 @@ void Parcours::trouverFin(vector<vector<int> > _circuit, int x, int y){
 bool positionValide(vector<vector<int> > _circuit, int x, int y){
   //cout << "valeur x : " << x << " valeur y : " << y << endl;
   //cout << (x < _circuit.size()) << endl;
-    if(x < 0 || y < 0 || x > _circuit.size()-1 || y >_circuit.size()-1){
+  if(x < 0 || y < 0 || x > _circuit.size()-1 || y >_circuit.size()-1){
         cout << "erreur : position invalide : " << x << "_______" << y << endl;
         return false;
 
