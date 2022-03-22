@@ -58,8 +58,13 @@ int main() {
   vector<vector<int> > circuit_ = (*circuitTest).generateCircuit(circuit, (*recupParam).getRgbArrivee(), x_depart, y_depart);
 
   //Generation du chemin sur le circuit
-  circuit_ = (*circuitTest).ajoutChemin(circuit_,accels,x_depart,y_depart,acc_max);
+  //circuit_ = (*circuitTest).ajoutChemin(circuit_,accels,x_depart,y_depart,acc_max);
 
+  // Parcours en profondeur
+  Parcours *parcours = new Parcours();
+  (*parcours).trouverFin(circuit_,x_depart,y_depart);
+
+/*
   for(int i = 0; i < circuit_.size(); i++){
       
       for(int j = 0; j < circuit_[i].size(); j++){
@@ -67,7 +72,7 @@ int main() {
       }
     cout << endl;
         }
-  
+*/
 
 
   //CheminALaMain();

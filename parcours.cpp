@@ -10,14 +10,15 @@ Parcours::~Parcours(){
     std::cout << "Destructeur Parcours" << endl;
 }
 
+
 void Parcours::trouverFin(vector<vector<int> > _circuit, int x, int y){
 
-    vector<pair<int,int> > voisins;
-    vector<pair<int,int> > voisinsXY = getVoisins(_circuit, x, y);
+    std::vector<std::pair<int,int> > voisins;
+    vector<std::pair<int,int> > voisinsXY = getVoisins(_circuit, x, y);
   
     _circuit[y][x] = 1;
 
-    for (pair<int,int>  voisin : voisinsXY){
+    for (std::pair<int,int>  voisin : voisinsXY){
         voisins.push_back(voisin);
     }
 
@@ -54,7 +55,7 @@ void Parcours::trouverFin(vector<vector<int> > _circuit, int x, int y){
     }
 }
 
-bool positionValide(vector<vector<int> > _circuit, int x, int y){
+bool Parcours::positionValide(vector<vector<int> > _circuit, int x, int y){
   //cout << "valeur x : " << x << " valeur y : " << y << endl;
   //cout << (x < _circuit.size()) << endl;
   if(x < 0 || y < 0 || x > _circuit.size()-1 || y >_circuit.size()-1){
@@ -77,7 +78,7 @@ bool positionValide(vector<vector<int> > _circuit, int x, int y){
     }
 }
 
-vector<pair<int,int> > getVoisins(vector<vector<int> > _circuit, int x, int y){
+vector<pair<int,int> > Parcours::getVoisins(vector<vector<int> > _circuit, int x, int y){
   vector<pair<int,int> > voisinsXY;
   if (positionValide(_circuit, x+1, y)){
     voisinsXY.push_back(make_pair(x+1,y));
