@@ -1,6 +1,7 @@
 #include "recupParam.hpp"
 #include "circuit.hpp"
 #include "parcours.hpp"
+#include "dijkstra.hpp"
 #include <fstream>
 #include <stdlib.h>
 
@@ -17,9 +18,9 @@ void CheminALaMain(){
             valeurJ = baseJ ;
             myFile.write (reinterpret_cast<const char *>(&i), sizeof(i));
             myFile.write (reinterpret_cast<const char *>(&valeurJ), sizeof(valeurJ));
-            std::cout << "(" << i << "," << valeurJ << ")" <<'\n';            
+            std::cout << "(" << i << "," << valeurJ << ")" <<'\n';
         }
-        
+
         baseJ = baseJ + j;
     }
     myFile.close();
@@ -61,12 +62,29 @@ int main() {
   //circuit_ = (*circuitTest).ajoutChemin(circuit_,accels,x_depart,y_depart,acc_max);
 
   // Parcours en profondeur
-  Parcours *parcours = new Parcours();
-  (*parcours).trouverFin(circuit_,x_depart,y_depart);
+//  Parcours *parcours = new Parcours();
+//  (*parcours).trouverFin(circuit_,x_depart,y_depart);
+
+
+  // Dijkstra
+  int myGraph[6][6]={
+        {0, 1, 2, 0, 0, 0},
+        {1, 0, 0, 5, 1, 0},
+        {2, 0, 0, 2, 3, 0},
+        {0, 5, 2, 0, 2, 2},
+        {0, 1, 3, 2, 0, 1},
+        {0, 0, 0, 2, 1, 0}};
+
+	Dijkstra *dijkstra = new Dijkstra(circuit_,x_depart,y_depart);
+
+  (*dijkstra).DijkstraAlgo(myGraph,0);
+
+  (*dijkstra).~Dijkstra();
+
 
 /*
   for(int i = 0; i < circuit_.size(); i++){
-      
+
       for(int j = 0; j < circuit_[i].size(); j++){
         cout << circuit_[i][j];
       }
@@ -78,12 +96,12 @@ int main() {
   //CheminALaMain();
 
   int lecture;
- 
+
   std::ifstream myFileToRead ("chemin.bin", std::ios::out | std::ios::binary);
   myFileToRead.read (reinterpret_cast<char *>(&lecture), sizeof(lecture));
   std::cout << (int)lecture << ": lec " << std::endl;
- 
-  
+
+
 
   delete recupParam;
 
