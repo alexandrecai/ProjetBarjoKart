@@ -7,6 +7,7 @@ Dijkstra::Dijkstra(vector<vector<int> > _circuit, int _x_depart, int _y_depart){
   (*this).circuit = _circuit;
   (*this).x_depart = _y_depart;
   (*this).y_depart = _x_depart;
+  (*this).PremiereArriveeTrouvee = false;
 }
 
 
@@ -90,6 +91,8 @@ void Dijkstra::maj_distances(int i, int j, int i1, int j1){
 
   // new version
 
+
+
   bool voisin = false;
 
   if(i1==i+1 && j1==j && i !=99){
@@ -155,12 +158,12 @@ void Dijkstra::maj_distances(int i, int j, int i1, int j1){
 
 
       // on set l'arrivée
-      if((*this).circuit[i1][j1]==9){
+      if((*this).circuit[i1][j1]==9 && !PremiereArriveeTrouvee){
 
         (*this).arrivee=make_pair(i1,j1); // temp maybe
 
         cout << "Je suis tombé sur la fin" << endl;
-
+        PremiereArriveeTrouvee=true;
       }
 
       // cf. tests
@@ -177,11 +180,6 @@ void Dijkstra::maj_distances(int i, int j, int i1, int j1){
   }
 
 }
-
-
-
-
-
 
 
 
@@ -265,38 +263,38 @@ void Dijkstra::chemin(){
 
   cout << "arrivee en 99,99 : " << (*this).circuit[99][99] << " . " << endl;
 
-  (*this).arrivee=make_pair(99,99);
+
 
   pair<int,int> currentSommet = (*this).arrivee;
 
   cout << "S deb -> x : " << Sdeb.first << " | y : " << Sdeb.second << endl;
 
- cout << "Affichage ciruit point passé(s)" << "\n" << endl;
 
-  for(int i =0; i < (*this).circuit.size(); i++){
-    for(int j = 0; j < (*this).circuit[i].size(); j++){
-      if ((*this).mapDistance[make_pair(i,j)] == INT_MAX){
-        cout << '_' << " ";
-      }
-      else{
-      cout << (*this).mapDistance[make_pair(i,j)] << " ";
-      }
-    }
-    cout << endl;
-  }
+  cout << "----------------------------------------------------------" << endl;
+  /*while(currentSommet.first != Sdeb.first){
+    cout << "predecesseur du dernier element : (" << pred[currentSommet].first <<  "," << pred[currentSommet].second <<") \n" << endl;
+    currentSommet = pred[currentSommet];
+  }*/
+  bool isValid = true;
 
-  while(Sdeb.first != currentSommet.first && Sdeb.second != currentSommet.second){
-    //cout << "Ajout de " << currentSommet.first << " " << currentSommet.second << endl;
+  while(isValid){
     listPoints.insert(listPoints.begin(), currentSommet);
     currentSommet = mapPredecessor[make_pair(currentSommet.first, currentSommet.second)];
-
+    if(currentSommet.first == Sdeb.first && currentSommet.second == Sdeb.second)
+      isValid = false;
   }
+
+
 
   listPoints.insert(listPoints.begin(), Sdeb);
 
 
 
   cout << "premier element : " << listPoints[0].first <<"," << listPoints[0].second << "\n" << endl;
+  cout << "deuxieme element : " << listPoints[1].first <<"," << listPoints[1].second << "\n" << endl;
+  cout << "troisieme element : " << listPoints[2].first <<"," << listPoints[2].second << "\n" << endl;
+  cout << "quatrieme element : " << listPoints[3].first <<"," << listPoints[3].second << "\n" << endl;
+  cout << "cinquieme element : " << listPoints[4].first <<"," << listPoints[4].second << "\n" << endl;
 
   cout << "nombre d'éléments : " << (int) listPoints.size() << endl;
 
@@ -305,6 +303,7 @@ void Dijkstra::chemin(){
 
   // Affichage
   for(int i = 0; i < (int) listPoints.size(); i++)
+    
     cout << "(" << listPoints[i].first << "," << listPoints[i].second << ")" << "\n";
 
 

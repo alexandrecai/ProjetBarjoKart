@@ -7,6 +7,8 @@ class Dijkstra{
   private:
     int distance[6];
     bool Tset[6];
+    bool PremiereArriveeTrouvee;
+
 
     std::vector<std::vector<int> > circuit;
 
