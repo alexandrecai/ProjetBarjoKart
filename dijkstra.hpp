@@ -33,9 +33,11 @@ class Dijkstra{
 
     void maj_distances( int i, int j, int i1, int j1);
 
-    void DijkstraAlgo();
+    std::vector<int> DijkstraAlgo();
 
-    void chemin();
+    std::vector<int> chemin();
+
+    std::vector<int> getVitessesDijkstra(std::vector<std::pair<int,int> > listPoints);
 
     ~Dijkstra();
 };

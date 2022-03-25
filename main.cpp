@@ -31,8 +31,8 @@ int main() {
   // Tests montrants le fonctionnement de la classe permettant de récupérer les paramètres issus du .toml .
 
   //Parametres de configuration
-  string paramFile = "basique.toml";
-  string circuit = "basique.png";
+  string paramFile = "fusee.toml";
+  string circuit = "fusee.png";
 
 
   RecupParam *recupParam = new RecupParam();
@@ -77,8 +77,20 @@ int main() {
 
 	Dijkstra *dijkstra = new Dijkstra(circuit_,x_depart,y_depart);
 
-  (*dijkstra).DijkstraAlgo(myGraph,0);
+  
 
+  vector<int> vitesses = (*dijkstra).DijkstraAlgo();
+
+  std::ofstream myFile ("testcircuit.bin", std::ios::out | std::ios::binary);
+  cout << "Valeurs de vitesses : ";
+  for(int value : vitesses){
+    myFile.write (reinterpret_cast<const char *>(&value), sizeof(value));
+    cout << value << " , ";
+  }
+  cout << endl;
+  myFile.close();
+
+  
   (*dijkstra).~Dijkstra();
 
 
