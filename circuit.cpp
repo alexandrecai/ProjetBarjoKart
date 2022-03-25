@@ -45,7 +45,7 @@ Circuit::Circuit(std::string _circuit){
 vector<vector<int> > Circuit::generateCircuit(string _imageCircuit, std::vector<int> _couleur_arrivee, int _x_depart, int _y_depart){
     png::image< png::rgb_pixel > image(_imageCircuit);
     png::rgb_pixel couleur_arrivee;
-    couleur_arrivee.red = _couleur_arrivee[0]; 
+    couleur_arrivee.red = _couleur_arrivee[0];
     couleur_arrivee.green = _couleur_arrivee[1];
     couleur_arrivee.blue = _couleur_arrivee[2];
 
@@ -54,20 +54,29 @@ vector<vector<int> > Circuit::generateCircuit(string _imageCircuit, std::vector<
         vector<int> ligne;
         for(int j = 0; j < image.get_width(); j++){
             png::rgb_pixel pixel = image[i][j];
+
+            // Si le pixel est rouge, c'est l'arrivée
             if (pixel.red == couleur_arrivee.red && pixel.blue == couleur_arrivee.blue && pixel.green == couleur_arrivee.green){
                 ligne.push_back(9);
             }
+            // Si le pixel est blanc, c'est la piste
             else if (pixel.red == 255 && pixel.blue == 255 && pixel.green == 255){
                 ligne.push_back(0);
             }
+            // Si le est noir, c'est un mur
             else if (pixel.red == 0 && pixel.blue == 0 && pixel.green == 0){
                 ligne.push_back(2);
             }
+            // On initialise le pixel de départ à 0
             else if (i == _x_depart && j == _y_depart){
                 ligne.push_back(0);
             }
-            
-        
+            // On met tous les autres pixels à 2
+            else {
+                ligne.push_back(2);
+            }
+
+
 
         }
         circuit.push_back(ligne);
@@ -182,7 +191,7 @@ vector<vector<int> > Circuit::ajoutChemin(vector<vector<int> > circuitFinal ,vec
                     return circuitFinal;
 
                 }
-                
+
             }
         }
     }

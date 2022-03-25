@@ -31,8 +31,8 @@ int main() {
   // Tests montrants le fonctionnement de la classe permettant de récupérer les paramètres issus du .toml .
 
   //Parametres de configuration
-  string paramFile = "fusee.toml";
-  string circuit = "fusee.png";
+  string paramFile = "prairie.toml";
+  string circuit = "prairie.png";
 
 
   RecupParam *recupParam = new RecupParam();
@@ -77,7 +77,7 @@ int main() {
 
 	Dijkstra *dijkstra = new Dijkstra(circuit_,x_depart,y_depart);
 
-  
+
 
   vector<int> vitesses = (*dijkstra).DijkstraAlgo();
 
@@ -90,7 +90,7 @@ int main() {
   cout << endl;
   myFile.close();
 
-  
+
   (*dijkstra).~Dijkstra();
 
 
