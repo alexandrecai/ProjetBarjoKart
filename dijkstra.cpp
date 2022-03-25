@@ -3,29 +3,15 @@
 using namespace std;
 
 // constructeur
-Dijkstra::Dijkstra(vector<vector<int>> _circuit, int _x_depart, int _y_depart){
+Dijkstra::Dijkstra(vector<vector<int> > _circuit, int _x_depart, int _y_depart){
   (*this).circuit = _circuit;
-  (*this).x_depart = _x_depart;
-  (*this).y_depart = _y_depart;
+  (*this).x_depart = _y_depart;
+  (*this).y_depart = _x_depart;
 }
 
 
 pair<int, int> Dijkstra::minDist() // finding minimum distance
 {
-  /*
-    int minimum=INT_MAX; // INT_MAX => valeur max d'un int en C++
-		int indexSommet;
-
-    for(int k=0;k<6;k++)
-    {
-        if(Tset[k]==false && distance[k]<=minimum)
-        {
-            minimum=distance[k];
-            indexSommet=k;
-        }
-    }
-*/
-
   //new version
 
     int minimum=INT_MAX;
@@ -36,12 +22,8 @@ pair<int, int> Dijkstra::minDist() // finding minimum distance
         if(circuit[i][j]==0 && mapDistance.at(make_pair(i,j)) <= minimum){
 
           minimum = mapDistance.at(make_pair(i,j));
-          //(*this).mapDistance[make_pair(i,j)]=INT_MAX;
           indexSommet = make_pair(i,j);
 
-        //  cout << "minimum : " << minimum << endl;
-
-        //  cout << " first : " << indexSommet.first << " | second : " << indexSommet.second  <<  endl;
 
         }
       }
@@ -54,15 +36,7 @@ pair<int, int> Dijkstra::minDist() // finding minimum distance
 
 
 
-bool Dijkstra::toutSommetsVisites(bool Tset[]){
-/*
-  for(int i = 0; i < 6; i++){
-		if(Tset[i]==false)
-			return false;
-	}
-
-	return true;
-  */
+bool Dijkstra::toutSommetsVisites(){
 
   // new version
 
@@ -80,16 +54,7 @@ bool Dijkstra::toutSommetsVisites(bool Tset[]){
 }
 
 
-void Dijkstra::initDijkstra(int distance[], bool Tset[], int src){
-
-/*
-  for(int k = 0; k<6; k++){
-      distance[k] = INT_MAX;
-      Tset[k] = false;
-  }
-  distance[src] = 0;   // distance du sommet source initialisée à 0 car distance à lui-même "nulle"
-
-*/
+void Dijkstra::initDijkstra(){
 
   // new version
 
@@ -97,9 +62,11 @@ void Dijkstra::initDijkstra(int distance[], bool Tset[], int src){
     for(int j = 0; j < (int) (*this).circuit[i].size(); j++){
       if(!(circuit[i][j]==2)){
         (*this).mapDistance[make_pair(i,j)]=INT_MAX;
+        cout << "(" << i << "," << j << ") = " << (*this).mapDistance[make_pair(i,j)] << endl;
       }
     }
   }
+  (*this).mapDistance[make_pair(88,99)]=INT_MAX;
 
 //  cout << "map [4] [5] : " << mapDistance.at(make_pair(4,5)) << endl;
 
@@ -112,18 +79,14 @@ void Dijkstra::initDijkstra(int distance[], bool Tset[], int src){
 
 
 
-void Dijkstra::maj_distances(int m, int k, int graph[6][6], int i, int j, int i1, int j1){
-  // maj distances
-  if(!(*this).Tset[k] && graph[m][k] && (*this).distance[m]!=INT_MAX && (*this).distance[m]+graph[m][k]<(*this).distance[k])
-  /*
+void Dijkstra::maj_distances(int i, int j, int i1, int j1){
+    /*
     liste des conditions :
       - si k n'a pas été visité -> !Tset[k]
       - si k est voisin de m -> graph[m][k]
       - s'il existe un chemin depuis m jusqu'à Sdeb -> distance[m]!=INT_MAX
       - si k n'a pas été visité ou que chemin(de Sdeb à k) passe par un plus long chemin-> distance[m]+graph[m][k]<distance[k]
   */
-      (*this).distance[k]=(*this).distance[m]+graph[m][k];
-
 
   // new version
 
@@ -156,13 +119,39 @@ void Dijkstra::maj_distances(int m, int k, int graph[6][6], int i, int j, int i1
   if(i==99 && j==1){
     cout << "bool voisin : " << voisin << endl;
   }
+  //cout << "------------------------------------ " << (*this).mapDistance.at(make_pair(87,99)) << endl;
+  
+  if(voisin && circuit[i1][j1] != 2) {
+    //cout << "sommet visité 4" << endl;
 
+    //cout << (*this).mapDistance.at(make_pair(i,j)) << "   affichage mapDistance" << endl;  //SOUCIS VIENT DE CA
+    //cout << (*this).mapDistance.at(make_pair(i1,j1)) << "   affichage mapDistance" << endl;
+    
+    //cout<<"----------------"<<endl;
+    cout << "Voisins" << endl;
+    cout << "i1 " << i1 << " j1 " << j1  << endl;
+    
+    cout << circuit[88][99] << endl;
+    if (circuit[i1][j1] == 2) {
+      cout << "circuit[i1][j1] == 2 --------------------------------------------------------------" << endl;
+    }
+    cout << "Verification mapDistance : " << (*this).mapDistance.at(make_pair(i,j))+1 << endl;
+    cout << "Verification mapDistance : " << (*this).mapDistance.at(make_pair(i1,j1)) << endl;
 
-  if(voisin) {
     if( ((*this).circuit[i1][j1]==0 || (*this).circuit[i1][j1]==9) && voisin && (*this).mapDistance.at(make_pair(i,j))!=INT_MAX && (*this).mapDistance.at(make_pair(i,j))+1<(*this).mapDistance.at(make_pair(i1,j1)) ){
+
+      cout <<"if passé "<<endl;
+      if (j1 == 99) {
+        cout << "Creation de la paire " << i1 << " " << j1 << " avec comme distance " << (*this).mapDistance.at(make_pair(i,j))+1 << endl;
+      
+      }
       (*this).mapDistance[make_pair(i1,j1)]=(*this).mapDistance[make_pair(i,j)]+1;
+      //cout << "distance +1 fait" << endl;
+
 
       (*this).mapPredecessor[make_pair(i1,j1)]=make_pair(i,j);
+      //cout << "Nouveau précedent ajouté x1: " << i1 << " y1: " << j1 << " x2: " << i << " y2: " << j << endl;
+      //cout << "ajout precedent " << endl;
 
 
       // on set l'arrivée
@@ -183,7 +172,8 @@ void Dijkstra::maj_distances(int m, int k, int graph[6][6], int i, int j, int i1
 
   }
   else{
-  //  cout << "pas voisin" << endl;
+    cout << "Pas voisins" << endl;
+    //cout << "else passé" << endl;
   }
 
 }
@@ -195,19 +185,28 @@ void Dijkstra::maj_distances(int m, int k, int graph[6][6], int i, int j, int i1
 
 
 
-void Dijkstra::DijkstraAlgo(int graph[6][6],int src){ // adjacency matrix
+void Dijkstra::DijkstraAlgo(){ // adjacency matrix
+
+  int compteurMinDist = 0;
 
     cout << "predecesseur du dernier element : (" << mapPredecessor[make_pair(99, 99)].first <<  "," << mapPredecessor[make_pair(99, 99)].second <<") \n" << endl;
 
     // init
-    initDijkstra((*this).distance, (*this).Tset, src);
+    initDijkstra();
 
     // endInit
 
+    cout << "point de depart : " << (*this).mapDistance[make_pair((*this).x_depart,(*this).y_depart)] << endl ;
 
-    while (!toutSommetsVisites((*this).Tset)) {
+    cout << "init terminée" << endl;
+
+    while (!toutSommetsVisites()) {
 
         pair<int,int> m = (*this).minDist(); // sommet m
+
+        compteurMinDist++;
+
+        cout << "compteurMinDist : " << compteurMinDist << " | " << (*this).mapDistance[make_pair(m.first,m.second)] << endl;
 
       //  cout << "sommet m -> x : " << m.first << " | y : " << m.second << endl;
 
@@ -215,14 +214,14 @@ void Dijkstra::DijkstraAlgo(int graph[6][6],int src){ // adjacency matrix
 
         (*this).circuit[m.first][m.second] = 1;
 
-      //  cout << "sommet visité" << endl;
 
         for(int i = m.first - 1; i <= m.first+1; i++ ){
+          //cout << "sommet visité 2" << endl;
           for(int j = m.second - 1; j <= m.second+1; j++ ){
-            maj_distances(1,1,graph, m.first, m.second, i, j);
+            cout << i << " ||||||| " << j << endl;
+            maj_distances(m.first, m.second, i, j);
           }
         }
-
 
         /*
 
@@ -257,9 +256,9 @@ void Dijkstra::chemin(){
 
   cout << "Affichage chemin" << endl;
 
-  map<pair<int,int>,pair<int,int>> pred = (*this).mapPredecessor; // map des predecesseurs
+  map<pair<int,int>,pair<int,int> > pred = (*this).mapPredecessor; // map des predecesseurs
 
-  vector<pair<int,int>> listPoints; // liste de tt les points du chemin
+  vector<pair<int,int> > listPoints; // liste de tt les points du chemin
 
   pair<int,int> Sdeb = make_pair((*this).x_depart,(*this).y_depart); // point de depart
 
@@ -272,9 +271,25 @@ void Dijkstra::chemin(){
 
   cout << "S deb -> x : " << Sdeb.first << " | y : " << Sdeb.second << endl;
 
+ cout << "Affichage ciruit point passé(s)" << "\n" << endl;
+
+  for(int i =0; i < (*this).circuit.size(); i++){
+    for(int j = 0; j < (*this).circuit[i].size(); j++){
+      if ((*this).mapDistance[make_pair(i,j)] == INT_MAX){
+        cout << '_' << " ";
+      }
+      else{
+      cout << (*this).mapDistance[make_pair(i,j)] << " ";
+      }
+    }
+    cout << endl;
+  }
+
   while(Sdeb.first != currentSommet.first && Sdeb.second != currentSommet.second){
+    //cout << "Ajout de " << currentSommet.first << " " << currentSommet.second << endl;
     listPoints.insert(listPoints.begin(), currentSommet);
     currentSommet = mapPredecessor[make_pair(currentSommet.first, currentSommet.second)];
+
   }
 
   listPoints.insert(listPoints.begin(), Sdeb);
@@ -294,6 +309,34 @@ void Dijkstra::chemin(){
 
 
   cout << endl;
+
+  // Affichage passé ou pas
+
+  cout << "Affichage circuit point passé(s)" << "\n" << endl;
+
+  for(int i =0; i < (*this).circuit.size(); i++){
+    for(int j = 0; j < (*this).circuit[i].size(); j++){
+      cout << (*this).circuit[i][j] << " ";
+    }
+    cout << endl;
+  }
+
+  // Affichage distance from Sdeb
+
+  cout << "Affichage ciruit point passé(s)" << "\n" << endl;
+
+  for(int i =0; i < (*this).circuit.size(); i++){
+    for(int j = 0; j < (*this).circuit[i].size(); j++){
+      if ((*this).mapDistance[make_pair(i,j)] == INT_MAX){
+        cout << '_' << " ";
+      }
+      else{
+      cout << (*this).mapDistance[make_pair(i,j)] << " ";
+      }
+    }
+    cout << endl;
+  }
+
 }
 
 
