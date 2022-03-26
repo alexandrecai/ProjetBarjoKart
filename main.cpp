@@ -30,7 +30,7 @@ int main() {
   int acc_max = (*recupParam).getAccelerationMax();
   std::vector<int> couleur_arrivee = (*recupParam).getRgbArrivee();
 
-
+  
   //Recuperation coordonnées depart
   std::map<std::string, int> depart = (*recupParam).getCoordonneesDepart();
   int x_depart = depart["x"];

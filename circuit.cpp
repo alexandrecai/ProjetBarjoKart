@@ -53,9 +53,9 @@ vector<vector<int> > Circuit::generateCircuit(string _imageCircuit, std::vector<
     couleur_arrivee.blue = _couleur_arrivee[2];
 
     vector<vector<int> > circuit;
-    for(int i = 0; i < image.get_height(); i++){
+    for(size_t i = 0; i < image.get_height(); i++){
         vector<int> ligne;
-        for(int j = 0; j < image.get_width(); j++){
+        for(size_t j = 0; j < image.get_width(); j++){
             png::rgb_pixel pixel = image[i][j];
 
             // Si le pixel est rouge, c'est l'arrivée
@@ -71,7 +71,7 @@ vector<vector<int> > Circuit::generateCircuit(string _imageCircuit, std::vector<
                 ligne.push_back(2);
             }
             // On initialise le pixel de départ à 0
-            else if (i == _x_depart && j == _y_depart){
+            else if (i == (size_t) _x_depart && j == (size_t)  _y_depart){
                 ligne.push_back(0);
             }
             // On met tous les autres pixels à 2
@@ -123,7 +123,7 @@ vector<vector<int> > Circuit::ajoutChemin(vector<vector<int> > circuitFinal ,vec
     cout << "acc_max : " << acc_max << endl;
 
     //Ajout des positions des points ou l'on passe à la liste pointsAAjouter
-    for(int placeValeurAccel = 0; placeValeurAccel < pointsPassage.size() ; placeValeurAccel = placeValeurAccel + 2){
+    for(size_t placeValeurAccel = 0; placeValeurAccel < pointsPassage.size() ; placeValeurAccel = placeValeurAccel + 2){
 
         nouvelle_vitesse_x = pointsPassage[placeValeurAccel];
         nouvelle_vitesse_y = pointsPassage[placeValeurAccel+1];
@@ -173,23 +173,23 @@ vector<vector<int> > Circuit::ajoutChemin(vector<vector<int> > circuitFinal ,vec
     }
 
     for(vector<int> pointActuel : pointsAAjouter){
-        for(int hauteur = 0; hauteur < circuitFinal.size(); hauteur++){
-            for(int largeur = 0; largeur < circuitFinal[hauteur].size(); largeur++){
-                if(hauteur == x_depart && largeur == y_depart){
+        for(size_t hauteur = 0; hauteur < circuitFinal.size(); hauteur++){
+            for(size_t largeur = 0; largeur < circuitFinal[hauteur].size(); largeur++){
+                if(hauteur == (size_t) x_depart && largeur == (size_t) y_depart){
                     circuitFinal[hauteur][largeur] = 1;
                 }
-                if(hauteur == pointActuel[0] && largeur == pointActuel[1] && circuitFinal[hauteur][largeur] == 9){
+                if(hauteur == (size_t) pointActuel[0] && largeur == (size_t) pointActuel[1] && circuitFinal[hauteur][largeur] == 9){
                     cout << "Vous avez réussi !" << endl;
                     circuitFinal[hauteur][largeur] = 7;
                 }
-                if(hauteur == pointActuel[0] && largeur == pointActuel[1] && circuitFinal[hauteur][largeur] == 1){
+                if(hauteur == (size_t)  pointActuel[0] && largeur == (size_t)  pointActuel[1] && circuitFinal[hauteur][largeur] == 1){
                     cout << "Tete a queue" << endl;
                     break;
                 }
-                if(hauteur == pointActuel[0] && largeur == pointActuel[1] && circuitFinal[hauteur][largeur] != 7){
+                if(hauteur == (size_t)  pointActuel[0] && largeur == (size_t)  pointActuel[1] && circuitFinal[hauteur][largeur] != 7){
                     circuitFinal[hauteur][largeur] = 1;
                 }
-                if(pointActuel[0] < 0 || pointActuel[1] < 0 || pointActuel[0] > circuitFinal.size()-1 || pointActuel[1] >circuitFinal.size()-1){
+                if(pointActuel[0] < 0 || (size_t) pointActuel[1] < 0 || (size_t) pointActuel[0] > circuitFinal.size()-1 || (size_t) pointActuel[1] >circuitFinal.size()-1){
                     cout << "Sortie de piste" << endl;
                     return circuitFinal;
 

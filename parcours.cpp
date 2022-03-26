@@ -24,8 +24,8 @@ void Parcours::trouverFin(vector<vector<int> > _circuit, int x, int y){
 
     while (voisins.size() > 0){
 
-        for (int i = 0; i < _circuit.size(); i++){
-            for (int j = 0; j < _circuit[i].size(); j++){
+        for (size_t i = 0; i < _circuit.size(); i++){
+            for (size_t j = 0; j < _circuit[i].size(); j++){
                 cout << _circuit[i][j] << " ";
             }
             cout << endl;
@@ -37,8 +37,8 @@ void Parcours::trouverFin(vector<vector<int> > _circuit, int x, int y){
         if (_circuit[voisin.second][voisin.first] == 9){
             cout << "succes : arrivee atteinte" << endl;
             cout << "arrivee atteinte en " << voisin.first << "," << voisin.second << endl;
-            for (int i = 0; i < _circuit.size(); i++){
-                for (int j = 0; j < _circuit[i].size(); j++){
+            for (size_t i = 0; i < _circuit.size(); i++){
+                for (size_t j = 0; j < _circuit[i].size(); j++){
                     cout << _circuit[i][j] << " ";
                 }
                 cout << endl;
@@ -58,7 +58,7 @@ void Parcours::trouverFin(vector<vector<int> > _circuit, int x, int y){
 bool Parcours::positionValide(vector<vector<int> > _circuit, int x, int y){
   //cout << "valeur x : " << x << " valeur y : " << y << endl;
   //cout << (x < _circuit.size()) << endl;
-  if(x < 0 || y < 0 || x > _circuit.size()-1 || y >_circuit.size()-1){
+  if(x < 0 || y < 0 || x > (int) _circuit.size()-1 || y > (int) _circuit.size()-1){
         cout << "erreur : position invalide : " << x << "_______" << y << endl;
         return false;
 
@@ -105,7 +105,7 @@ vector<pair<int,int> > Parcours::getVoisins(vector<vector<int> > _circuit, int x
 ///////////////////////  
 void Parcours::CheminAlaMain(){
     std::ofstream myFile ("chemin.bin", std::ios::out | std::ios::binary);
-    int vitesse = 1;
+
     int valeurJ = 0;
     int j;
     for(int i = 0; i<99; i++){
