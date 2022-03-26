@@ -12,13 +12,13 @@ using namespace std;
 int main() {
 
   Interface *interface = new Interface();
-  vector<string> choiCircuit = (*interface).getInfosInterface();
+  vector<string> choixCircuit = (*interface).getInfosInterface();
 
   // Tests montrants le fonctionnement de la classe permettant de récupérer les paramètres issus du .toml .
 
   //Parametres de configuration
-  string paramFile = choiCircuit[1];
-  string circuit = choiCircuit[0];
+  string paramFile = choixCircuit[1];
+  string circuit = choixCircuit[0];
 
 
   RecupParam *recupParam = new RecupParam();
@@ -57,9 +57,9 @@ int main() {
 
 
   vector<int> vitesses = (*dijkstra).DijkstraAlgo();
-  (*dijkstra).creationImage(choiCircuit[0]);
+  (*dijkstra).creationImage(choixCircuit[0]);
 
-  std::ofstream myFile (choiCircuit[2], std::ios::out | std::ios::binary);
+  std::ofstream myFile (choixCircuit[2], std::ios::out | std::ios::binary);
   cout << "Valeurs de vitesses : ";
   for(int value : vitesses){
     myFile.write (reinterpret_cast<const char *>(&value), sizeof(value));
