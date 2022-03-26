@@ -274,8 +274,17 @@ vector<int> Dijkstra::chemin(){
     cout << endl;
   }
 
+  
+
+
+
+  return getVitessesDijkstra(listPoints);
+
+}
+
+void Dijkstra::creationImage(string nomCircuit){
   //Creation d'une image de tous les points sur lesquels on est passé
-  png::image< png::rgb_pixel > image("mulholland_drive.png");
+  png::image< png::rgb_pixel > image(nomCircuit);
   for(size_t i =0; i < (*this).circuit.size(); i++){
     for(size_t j = 0; j < (*this).circuit[i].size(); j++){
       if ((*this).circuit[i][j] == 1){
@@ -288,12 +297,7 @@ vector<int> Dijkstra::chemin(){
     }
                   
   }
-  image.write("output.png");
-
-
-
-  return getVitessesDijkstra(listPoints);
-
+  image.write("visited_" + nomCircuit);
 }
 
 

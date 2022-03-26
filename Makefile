@@ -9,7 +9,7 @@ CFLAGS := -std=c++17 -g -Wall -Wextra -pedantic -ggdb -I $(PWD)/tomlplusplus -I 
 
 all : executable
 
-executable : recupParam.o main.o circuit.o parcours.o dijkstra.o
+executable : recupParam.o main.o circuit.o parcours.o dijkstra.o interface.o
 	$(CC) -o $@ $^ `libpng-config --ldflags --libs`
 
 %.o : %.cpp

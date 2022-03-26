@@ -34,6 +34,8 @@ class Dijkstra{
 
     std::vector<int> chemin();
 
+    void creationImage(std::string nomCircuit);
+
     std::vector<int> getVitessesDijkstra(std::vector<std::pair<int,int> > listPoints);
 
     ~Dijkstra();

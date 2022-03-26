@@ -2,6 +2,7 @@
 #include "circuit.hpp"
 #include "parcours.hpp"
 #include "dijkstra.hpp"
+#include "interface.hpp"
 #include <fstream>
 #include <stdlib.h>
 
@@ -10,11 +11,14 @@ using namespace std;
 
 int main() {
 
+  Interface *interface = new Interface();
+  vector<string> choiCircuit = (*interface).getInfosInterface();
+
   // Tests montrants le fonctionnement de la classe permettant de récupérer les paramètres issus du .toml .
 
   //Parametres de configuration
-  string paramFile = "mulholland_drive.toml";
-  string circuit = "mulholland_drive.png";
+  string paramFile = choiCircuit[1];
+  string circuit = choiCircuit[0];
 
 
   RecupParam *recupParam = new RecupParam();
@@ -53,6 +57,7 @@ int main() {
 
 
   vector<int> vitesses = (*dijkstra).DijkstraAlgo();
+  (*dijkstra).creationImage(choiCircuit[0]);
 
   std::ofstream myFile ("testcircuit.bin", std::ios::out | std::ios::binary);
   cout << "Valeurs de vitesses : ";
@@ -77,6 +82,7 @@ int main() {
 
   delete recupParam;
   delete circuitTest;
+  delete interface;
 
 
   return EXIT_SUCCESS;
