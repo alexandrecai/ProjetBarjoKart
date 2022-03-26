@@ -59,7 +59,7 @@ int main() {
   vector<int> vitesses = (*dijkstra).DijkstraAlgo();
   (*dijkstra).creationImage(choiCircuit[0]);
 
-  std::ofstream myFile ("testcircuit.bin", std::ios::out | std::ios::binary);
+  std::ofstream myFile (choiCircuit[2], std::ios::out | std::ios::binary);
   cout << "Valeurs de vitesses : ";
   for(int value : vitesses){
     myFile.write (reinterpret_cast<const char *>(&value), sizeof(value));
