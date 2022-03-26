@@ -17,7 +17,7 @@ pair<int, int> Dijkstra::minDist()
 {
 
     int minimum=INT_MAX;
-    
+
     pair<int, int> indexSommet;
 
     for(int i = 0; i < (int) (*this).circuit.size(); i++){
@@ -70,7 +70,7 @@ void Dijkstra::initDijkstra(){
 
 
 void Dijkstra::maj_distances(int i, int j, int i1, int j1){
- 
+
   bool voisin = false;
   if(i1==i+1 && j1==j && i != ((int)(*this).circuit.size() - 1)){
     voisin = true;
@@ -84,9 +84,9 @@ void Dijkstra::maj_distances(int i, int j, int i1, int j1){
   if(j1 == j-1 && i1==i && j!=0){
     voisin = true;
   }
-  
+
   if(voisin && circuit[i1][j1] != 2) {
-    if( ((*this).circuit[i1][j1]==0 || (*this).circuit[i1][j1]==9) && (*this).mapDistance.at(make_pair(i,j))!=INT_MAX && 
+    if( ((*this).circuit[i1][j1]==0 || (*this).circuit[i1][j1]==9) && (*this).mapDistance.at(make_pair(i,j))!=INT_MAX &&
                                                     (*this).mapDistance.at(make_pair(i,j))+1<(*this).mapDistance.at(make_pair(i1,j1)) ){
 
       (*this).mapDistance[make_pair(i1,j1)]=(*this).mapDistance[make_pair(i,j)]+1; //Ajout de 1 à la distance
@@ -97,7 +97,7 @@ void Dijkstra::maj_distances(int i, int j, int i1, int j1){
       // on set l'arrivée
       if((*this).circuit[i1][j1]==9 && !PremiereArriveeTrouvee){
 
-        (*this).arrivee=make_pair(i1,j1); 
+        (*this).arrivee=make_pair(i1,j1);
         cout << "Je suis tombé sur la fin" << endl;
         PremiereArriveeTrouvee=true;
       }
@@ -106,7 +106,7 @@ void Dijkstra::maj_distances(int i, int j, int i1, int j1){
 }
 
 
-vector<int> Dijkstra::DijkstraAlgo(){ 
+vector<int> Dijkstra::DijkstraAlgo(){
 
   int compteurMinDist = 0;
 
@@ -129,7 +129,7 @@ vector<int> Dijkstra::DijkstraAlgo(){
         }
       }
     }
-        
+
   }
   vector<int> vitesses = chemin();
   return vitesses;
@@ -195,9 +195,9 @@ vector<int> Dijkstra::chemin(){
     cout << endl;
   }
 */
-  
 
 
+  (*this).listePoints = listPoints;
 
   return getVitessesDijkstra(listPoints);
 
@@ -214,9 +214,9 @@ void Dijkstra::creationImage(string nomCircuit){
       else{
         image.set_pixel(j,i,png::rgb_pixel(0,0,0));
       }
-                    
+
     }
-                  
+
   }
   image.write("visited_" + nomCircuit);
 }
@@ -275,6 +275,10 @@ vector<int> Dijkstra::getVitessesDijkstra(vector<pair<int,int> > listPoints){
 
 
   return vitesses;
+}
+
+vector<pair<int,int>> Dijkstra::getListePoints(){
+  return (*this).listePoints;
 }
 
 

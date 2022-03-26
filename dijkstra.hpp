@@ -5,7 +5,7 @@
 
 class Dijkstra{
   private:
-  
+
     bool PremiereArriveeTrouvee;
     std::vector<std::vector<int> > circuit;
 
@@ -17,6 +17,8 @@ class Dijkstra{
     std::map<std::pair<int,int>, std::pair<int,int> > mapPredecessor;
 
     std::pair<int,int> arrivee;
+
+    std::vector<std::pair<int,int>> listePoints;
 
   public:
 
@@ -37,6 +39,8 @@ class Dijkstra{
     void creationImage(std::string nomCircuit);
 
     std::vector<int> getVitessesDijkstra(std::vector<std::pair<int,int> > listPoints);
+
+    std::vector<std::pair<int,int>> getListePoints();
 
     ~Dijkstra();
 };

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
+#include <filesystem>
 
 
 
@@ -17,7 +18,10 @@ class Interface{
     Interface();
 
     void initListeCircuit();
+
     vector<string> getInfosInterface();
+
+    void affichageScore(int nbEtapes, string bin);
 
     ~Interface();
 };

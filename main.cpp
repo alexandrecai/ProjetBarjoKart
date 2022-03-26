@@ -30,7 +30,7 @@ int main() {
   int acc_max = (*recupParam).getAccelerationMax();
   std::vector<int> couleur_arrivee = (*recupParam).getRgbArrivee();
 
-  
+
   //Recuperation coordonnées depart
   std::map<std::string, int> depart = (*recupParam).getCoordonneesDepart();
   int x_depart = depart["x"];
@@ -69,8 +69,6 @@ int main() {
   myFile.close();
 
 
-  (*dijkstra).~Dijkstra();
-
 
   int lecture;
 
@@ -78,7 +76,9 @@ int main() {
   myFileToRead.read (reinterpret_cast<char *>(&lecture), sizeof(lecture));
   std::cout << (int)lecture << ": lec " << std::endl;
 
+  (*interface).affichageScore((int)(*dijkstra).getListePoints().size(), choixCircuit[2]);
 
+  delete dijkstra;
 
   delete recupParam;
   delete circuitTest;
