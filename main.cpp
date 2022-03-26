@@ -7,32 +7,14 @@
 
 using namespace std;
 
-void CheminALaMain(){
-    std::ofstream myFile ("chemin.bin", std::ios::out | std::ios::binary);
-    int vitesse = 1;
-    int valeurJ = 0;
-    int j;
-    for(int i = 0; i<99; i++){
-        int baseJ = i;
-        for(int j = baseJ; j < (baseJ + 1); j++){
-            valeurJ = baseJ ;
-            myFile.write (reinterpret_cast<const char *>(&i), sizeof(i));
-            myFile.write (reinterpret_cast<const char *>(&valeurJ), sizeof(valeurJ));
-            std::cout << "(" << i << "," << valeurJ << ")" <<'\n';
-        }
-
-        baseJ = baseJ + j;
-    }
-    myFile.close();
-}
 
 int main() {
 
   // Tests montrants le fonctionnement de la classe permettant de récupérer les paramètres issus du .toml .
 
   //Parametres de configuration
-  string paramFile = "prairie.toml";
-  string circuit = "prairie.png";
+  string paramFile = "mulholland_drive.toml";
+  string circuit = "mulholland_drive.png";
 
 
   RecupParam *recupParam = new RecupParam();
@@ -66,15 +48,6 @@ int main() {
 //  (*parcours).trouverFin(circuit_,x_depart,y_depart);
 
 
-  // Dijkstra
-  int myGraph[6][6]={
-        {0, 1, 2, 0, 0, 0},
-        {1, 0, 0, 5, 1, 0},
-        {2, 0, 0, 2, 3, 0},
-        {0, 5, 2, 0, 2, 2},
-        {0, 1, 3, 2, 0, 1},
-        {0, 0, 0, 2, 1, 0}};
-
 	Dijkstra *dijkstra = new Dijkstra(circuit_,x_depart,y_depart);
 
 
@@ -94,19 +67,6 @@ int main() {
   (*dijkstra).~Dijkstra();
 
 
-/*
-  for(int i = 0; i < circuit_.size(); i++){
-
-      for(int j = 0; j < circuit_[i].size(); j++){
-        cout << circuit_[i][j];
-      }
-    cout << endl;
-        }
-*/
-
-
-  //CheminALaMain();
-
   int lecture;
 
   std::ifstream myFileToRead ("chemin.bin", std::ios::out | std::ios::binary);
@@ -116,7 +76,7 @@ int main() {
 
 
   delete recupParam;
-
+  delete circuitTest;
 
 
   return EXIT_SUCCESS;

@@ -18,6 +18,8 @@ class Parcours{
         vector<pair<int,int> > getVoisins(vector<vector<int> > _circuit, int x, int y);
         bool positionValide(vector<vector<int> > _circuit, int x, int y);
 
+        void CheminAlaMain();
+
 
 
 };

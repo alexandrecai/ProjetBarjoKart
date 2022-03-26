@@ -21,7 +21,7 @@ class Circuit{
     public:
 
         Circuit(string _circuit);
-
+        ~Circuit();
        
         string getCarte();
 

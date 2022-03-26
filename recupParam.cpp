@@ -14,39 +14,23 @@ void RecupParam::setVarFromFile(string paramFile){
   try
   {
       (*this).tbl = toml::parse_file((*this).nameParamFile);
-      std::cout << (*this).tbl << "\n";
 
-      std::cout << "\n" << "~~~~~~~~~~~~" << '\n' << std::endl;
 
       // récup accel max
 
       (*this).accelerationMax = (*this).tbl.get("acc_max")->value<int>().value();
-      std::cout << "accelerationMax : " << (*this).accelerationMax << '\n';
 
 
       // récup rgb
-      std::cout << "rgb : [";
-
       for(int i = 0; i <= 2; i++){
          (*this).rgbArrivee.push_back( (*this).tbl["couleur_arrivee"].as_array()[0].at(i).value<int>().value() );
-         std::cout << (*this).rgbArrivee[i];
-         if(i!=2){
-           std::cout << ", ";
-         }
       }
-
-      std::cout << "]" << std::endl;
-
 
       // recup coordonnées départ
 
       (*this).coordonneesDepart["x"] = (*this).tbl["depart"]["x"].value<int>().value();
       (*this).coordonneesDepart["y"] = (*this).tbl["depart"]["y"].value<int>().value();
-
-      std::cout << (*this).coordonneesDepart["x"] << '\n';
-
-      std::cout << (*this).coordonneesDepart["y"] << '\n';
-
+      
   }
   catch (const toml::parse_error& err)
   {

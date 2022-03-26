@@ -7,7 +7,6 @@ using namespace std;
 //Nettoyer le fichier (modifier le constructeur)
 
 Circuit::Circuit(std::string _circuit){
-    std::cout << "Circuit::Circuit(std::string _circuit)" << std::endl;
     png::image< png::rgb_pixel > image(_circuit);
     (*this).imageCircuit = image;
     (*this).width = imageCircuit.get_width();
@@ -38,6 +37,10 @@ Circuit::Circuit(std::string _circuit){
 
 }
 
+Circuit::~Circuit(){
+    std::cout << "Destruction du Circuit" << std::endl;
+}
+
 // Creation d'un tableau a 2 dimensions representant le circuit
 // 9 = arrivee
 // 0 = piste
@@ -56,7 +59,7 @@ vector<vector<int> > Circuit::generateCircuit(string _imageCircuit, std::vector<
             png::rgb_pixel pixel = image[i][j];
 
             // Si le pixel est rouge, c'est l'arrivée
-            if (pixel.red == couleur_arrivee.red && pixel.blue == couleur_arrivee.blue && pixel.green == couleur_arrivee.green){
+            if (pixel.red == couleur_arrivee.red && (int) pixel.blue < 160 && (int) pixel.green < 160){
                 ligne.push_back(9);
             }
             // Si le pixel est blanc, c'est la piste
