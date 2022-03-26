@@ -201,3 +201,44 @@ vector<vector<int> > Circuit::ajoutChemin(vector<vector<int> > circuitFinal ,vec
 
     return circuitFinal;
 }
+
+vector<vector<int> > Circuit::bresenham(vector<vector<int> > circuitFinal,int x1, int y1, int x2, int y2)
+{
+   
+   if(x2-x1 >= y2-y1){
+        int pente = 2 * (y2 - y1);
+        int rectification_pente = pente - (x2 - x1);
+        for (int x = x1, y = y1; x < x2; x++){
+            cout << "(" << x << "," << y << ")\n";
+            //Ajouter un test ici pour savoir si l'on est sur un mur
+            circuitFinal[x][y] = 1;
+
+            rectification_pente += pente;
+   
+            
+            if (rectification_pente >= 0){
+                y++;
+                rectification_pente  -= 2 * (x2 - x1);
+            }
+        }
+   }
+   else{
+        int pente = 2 * (x2 - x1);
+        int rectification_pente = pente - (y2 - y1);
+        for (int x = x1, y = y1; y < y2; y++){
+            cout << "(" << x << "," << y << ")\n";
+            //Ajouter un test ici pour savoir si l'on est sur un mur
+            circuitFinal[x][y] = 1;
+
+   
+            rectification_pente += pente;
+   
+            if (rectification_pente >= 0){
+                x++;
+                rectification_pente  -= 2 * (y2 - y1);
+            }
+        }
+   }
+   
+   return circuitFinal;
+}

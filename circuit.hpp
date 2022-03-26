@@ -32,7 +32,7 @@ class Circuit{
 
         vector<vector<int> > ajoutChemin(vector<vector<int> > circuitFinal ,vector<int> pointsPassage, int x_depart, int y_depart, int acc_max);
 
-        
+        vector<vector<int> > bresenham(vector<vector<int> > circuitFinal,int x1, int y1, int x2, int y2);
 
 
 
