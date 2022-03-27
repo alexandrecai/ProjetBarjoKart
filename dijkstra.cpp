@@ -85,6 +85,16 @@ void Dijkstra::maj_distances(int i, int j, int i1, int j1){
     voisin = true;
   }
 
+
+
+  /*
+  liste des conditions :
+    - si point(i1,j1) est voisin de point(i,j)
+    - si point(i1,j1) n'est pas un mur
+    - si point(i1,j1) est un point non visité ou un point de l'arrivée
+    - s'il existe un chemin connu depuis point(i,j) jusqu'au départ
+    - si point(i1,j1) n'a pas été visité ou que chemin(de départ à point(i1,j1)) passe par un plus long chemin
+  */
   if(voisin && circuit[i1][j1] != 2) {
     if( ((*this).circuit[i1][j1]==0 || (*this).circuit[i1][j1]==9) && (*this).mapDistance.at(make_pair(i,j))!=INT_MAX &&
                                                     (*this).mapDistance.at(make_pair(i,j))+1<(*this).mapDistance.at(make_pair(i1,j1)) ){
@@ -98,7 +108,6 @@ void Dijkstra::maj_distances(int i, int j, int i1, int j1){
       if((*this).circuit[i1][j1]==9 && !PremiereArriveeTrouvee){
 
         (*this).arrivee=make_pair(i1,j1);
-        cout << "Je suis tombé sur la fin" << endl;
         PremiereArriveeTrouvee=true;
       }
     }
@@ -138,8 +147,6 @@ vector<int> Dijkstra::DijkstraAlgo(){
 
 vector<int> Dijkstra::chemin(){
 
-  cout << "Affichage chemin" << endl;
-
   map<pair<int,int>,pair<int,int> > pred = (*this).mapPredecessor; // map des predecesseurs
   vector<pair<int,int> > listPoints; // liste de tt les points du chemin
 
@@ -156,45 +163,7 @@ vector<int> Dijkstra::chemin(){
 
   listPoints.insert(listPoints.begin(), Sdeb);
 
-  cout << "nombre d'éléments : " << (int) listPoints.size() << endl;
-  cout << "predecesseur du dernier element : (" << mapPredecessor[make_pair(99, 99)].first <<  "," << mapPredecessor[make_pair(99, 99)].second <<") \n" << endl;
-
   // Affichage du chemin
-  for(int i = 0; i < (int) listPoints.size(); i++)
-
-    cout << "(" << listPoints[i].first << "," << listPoints[i].second << ")" << "\n";
-  cout << endl;
-
-
-
-/*
-  // Affichage passé ou pas
-
-  cout << "Affichage circuit point passé(s)" << "\n" << endl;
-
-  for(size_t i =0; i < (*this).circuit.size(); i++){
-    for(size_t j = 0; j < (*this).circuit[i].size(); j++){
-      cout << (*this).circuit[i][j] << " ";
-    }
-    cout << endl;
-  }
-
-  // Affichage distance from Sdeb
-
-  cout << "Affichage ciruit point passé(s)" << "\n" << endl;
-
-  for(size_t i =0; i < (*this).circuit.size(); i++){
-    for(size_t j = 0; j < (*this).circuit[i].size(); j++){
-      if ((*this).mapDistance[make_pair(i,j)] == INT_MAX){
-        cout << '_' << " ";
-      }
-      else{
-      cout << (*this).mapDistance[make_pair(i,j)] << " ";
-      }
-    }
-    cout << endl;
-  }
-*/
 
 
   (*this).listePoints = listPoints;
@@ -203,8 +172,8 @@ vector<int> Dijkstra::chemin(){
 
 }
 
+//Creation d'une image de tous les points sur lesquels on est passé
 void Dijkstra::creationImage(string nomCircuit){
-  //Creation d'une image de tous les points sur lesquels on est passé
   png::image< png::rgb_pixel > image(nomCircuit);
   for(size_t i =0; i < (*this).circuit.size(); i++){
     for(size_t j = 0; j < (*this).circuit[i].size(); j++){
@@ -256,18 +225,7 @@ vector<int> Dijkstra::getVitessesDijkstra(vector<pair<int,int> > listPoints){
     vitesses.push_back(v_y);
     vitesses.push_back(v_x);
 
-    /*
-    cout << "----------------------------------" << endl;
-    cout << "PAct x = "  << point.first << endl;
-    cout << "PAct y = "  << point.second << endl;
-    cout << "PPrec x = "  << x_prec << endl;
-    cout << "PPrec y = "  << y_prec << endl;
-    cout << "dif x = "  << dif_x << endl;
-    cout << "dif y = "  << dif_y << endl;
-    cout << "vit x = "  << v_x << endl;
-    cout << "vit y = "  << v_y << endl;
-    cout << "----------------------------------" << endl;
-    */
+
     x_prec = point.first;
     y_prec = point.second;
   }
@@ -284,5 +242,5 @@ vector<pair<int,int>> Dijkstra::getListePoints(){
 
 // destructeur
 Dijkstra::~Dijkstra(){
-  cout<<"Destruction de Dijkstra" <<endl;
+  //cout<<"Destruction de Dijkstra" <<endl;
 }

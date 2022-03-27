@@ -114,6 +114,8 @@ vector<string> Interface::getInfosInterface(){
 void Interface::affichageScore(int nbEtapes, string bin){
   int score = 10000 - nbEtapes;
 
+  cout << "\nLe calcul de la trajectoire est terminé.\n" << endl;
+
   cout << "\nLe fichier binaire «" << bin << "» contenant la trajectoire a bien été créé." << endl;
 
   cout << "\nVous avez obtenu un score de " << score << " points sur ce circuit. Félicitations !\n" << endl;
@@ -121,5 +123,5 @@ void Interface::affichageScore(int nbEtapes, string bin){
 
 // destructeur
 Interface::~Interface(){
-  cout<<"Destruction de Interface" <<endl;
+  //cout<<"Destruction de Interface" <<endl;
 }

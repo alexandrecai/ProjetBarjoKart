@@ -7,7 +7,7 @@ using namespace std;
 Parcours::Parcours(){}
 
 Parcours::~Parcours(){
-    std::cout << "Destructeur Parcours" << endl;
+    //cout << "Destructeur Parcours" << endl;
 }
 
 
@@ -15,7 +15,7 @@ void Parcours::trouverFin(vector<vector<int> > _circuit, int x, int y){
 
     std::vector<std::pair<int,int> > voisins;
     vector<std::pair<int,int> > voisinsXY = getVoisins(_circuit, x, y);
-  
+
     _circuit[y][x] = 1;
 
     for (std::pair<int,int>  voisin : voisinsXY){
@@ -83,13 +83,13 @@ vector<pair<int,int> > Parcours::getVoisins(vector<vector<int> > _circuit, int x
     voisinsXY.push_back(make_pair(x+1,y));
   }
   if(positionValide(_circuit, x-1, y)){
-    voisinsXY.push_back(make_pair(x-1,y)); 
+    voisinsXY.push_back(make_pair(x-1,y));
   }
   if(positionValide(_circuit, x, y+1)){
-    voisinsXY.push_back(make_pair(x,y+1)); 
+    voisinsXY.push_back(make_pair(x,y+1));
   }
   if(positionValide(_circuit, x, y-1)){
-    voisinsXY.push_back(make_pair(x,y-1)); 
+    voisinsXY.push_back(make_pair(x,y-1));
   }
   return voisinsXY;
 
@@ -101,12 +101,12 @@ vector<pair<int,int> > Parcours::getVoisins(vector<vector<int> > _circuit, int x
 
 ///////////////////////
 //   Algorithme de test permettant de parcourir le circuit basique
-///////////////////////  
+///////////////////////
 void Parcours::CheminAlaMain(){
     std::ofstream myFile ("chemin.bin", std::ios::out | std::ios::binary);
 
     int valeurJ = 0;
-    int j;
+    int j = 0;
     for(int i = 0; i<99; i++){
         int baseJ = i;
         for(int j = baseJ; j < (baseJ + 1); j++){

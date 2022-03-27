@@ -1,11 +1,7 @@
 # compilateur
 CC := g++
 # options de compilation
-CFLAGS := -std=c++17 -g -Wall -Wextra -pedantic -ggdb -I $(PWD)/tomlplusplus -I $(PWD) # ! dernier include à modifier !
-
-##############################################################################################################
-# ! Veuillez absolument mettre le chemin de votre dossier contenant la bibliothèque toml++ comme ci-dessus ! #
-##############################################################################################################
+CFLAGS := -std=c++17 -g -Wall -Wextra -pedantic -ggdb -I $(PWD)/tomlplusplus -I $(PWD)
 
 all : executable
 

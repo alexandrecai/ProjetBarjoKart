@@ -30,7 +30,7 @@ void RecupParam::setVarFromFile(string paramFile){
 
       (*this).coordonneesDepart["x"] = (*this).tbl["depart"]["x"].value<int>().value();
       (*this).coordonneesDepart["y"] = (*this).tbl["depart"]["y"].value<int>().value();
-      
+
   }
   catch (const toml::parse_error& err)
   {
@@ -55,5 +55,5 @@ std::map<std::string, int> RecupParam::getCoordonneesDepart(){
 
 
 RecupParam::~RecupParam(){
-  cout << "Destruction de RecupParam" << endl;
+  //cout << "Destruction de RecupParam" << endl;
 }
